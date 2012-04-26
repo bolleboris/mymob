@@ -1,6 +1,6 @@
 <?php
-require_once('adodb5/adodb.inc.php');
-require_once('BMUMigration/lib/BMUCore.php');
+//require_once('adodb5/adodb.inc.php');
+//require_once('BMUMigration/lib/BMUCore.php');
 $username = $_REQUEST['user'];
 $password = $_REQUEST['password'];
 
@@ -11,6 +11,17 @@ ini_set('session.gc_probability',1);
 ini_set('session.gc_divisor',1);
 
 session_start();
+
+// hack om niet in te hoeven loggen
+if ($_SERVER['SERVER_NAME'] != 'wheels4all.nl') {
+	setcookie('loginCookie',$username);
+	$_SESSION['username'] = $username;
+
+	$return = array();
+	$return['username'] = $username;
+	$return['success'] = true;
+	exit(json_encode($return));
+}
 
 function sendErrorJSON($errorMsg){
 	$jsondata['success'] = false;
@@ -91,7 +102,4 @@ if($output = validateLogin($username,$password) != 0) {
 	$return['msg'] = "Verkeerde gebruikersnaam en/of password";
 	echo json_encode($return);
 }*/
-$return['username'] = $username;
-$return['success'] = true;
-echo json_encode($return);
-?>
+
