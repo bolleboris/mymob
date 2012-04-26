@@ -62,6 +62,8 @@
 	<script type="text/javascript" src="./modules/persoonDetails.js"></script>
 	<script type="text/javascript" src="./modules/creeerPersoon.js"></script>
 	<script type="text/javascript" src="./modules/creeerBoeking.js"></script>
+	<script type="text/javascript" src="./modules/offerDetails.js"></script>
+	<script type="text/javascript" src="./modules/offerLijst.js"></script>
 </head>
 
 <body>

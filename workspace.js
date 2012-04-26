@@ -75,6 +75,13 @@ var personenMenu = {
 				contractLijstStore.load();
 			}
 		},	{
+			text : 'Offers',
+			iconCls: 'icon-connect',
+			handler: function () {
+				offerLijstWindow.show();
+				offerLijstStore.load();
+			}
+		},	{
 			text : 'Passen',
 			iconCls : 'icon-creditcards',
 			disabled: true
