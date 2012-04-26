@@ -69,5 +69,8 @@ class BMU_ProviderSA {
 	public function RegisterPerson($appCode,$EntityKey,$Email,$Password) {
 		BMUCore::b()->push("RegisterPerson('$appCode','$EntityKey','$Email','$Password')");
 	}
+	public function RequestBooking($PersonId, $contractId, $offerId, $serviceId, $ResourceId, $StartDT, $EndDt) {
+	   BMUCore::b()->push("RequestBooking($PersonId,$contractId,$offerId,$serviceId,$ResourceId,'$StartDT','$EndDt')");
+	}
 }
 ?>

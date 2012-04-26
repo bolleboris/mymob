@@ -1,27 +1,38 @@
-/*var resourceBoekingGridPanel = new Ext.grid.GridPanel({
-   store: new Ext.data.Store({
-        autoDestroy: true,
-        reader: reader,
-        data: xg.dummyData
-    }),
-    colModel: new Ext.grid.ColumnModel({
-        defaults: {
-            width: 120,
-            sortable: true
-        },
-        columns: [
-            {id: 'company', header: 'Company', width: 400, sortable: true, dataIndex: 'company'},
-            {header: 'Price', renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
-            {header: 'Change', dataIndex: 'change'},
-            {header: '% Change', dataIndex: 'pctChange'},
-            // instead of specifying renderer: Ext.util.Format.dateRenderer('m/d/Y') use xtype
-            {
-                header: 'Last Updated', width: 135, dataIndex: 'lastChange',
-                xtype: 'datecolumn', format: 'M d, Y'
-            }
-        ]
-    })
-})*/
+var resourceBoekingStore = new Ext.data.GroupingStore({
+	url: './modules/api/searchResources.php',
+	reader : new Ext.data.JsonReader()			//Reader configureerd zichzelf met metaData in JSON string
+});
+
+var resourceBoekingGridPanel = new Ext.grid.GridPanel({
+	frame: false,
+	header: false,
+	collapsible: true,
+	animCollapse: true,
+	loadMask: true,
+	store: resourceBoekingStore,
+	columns: [
+		{header: "AutoId", width: 60, sortable: true, dataIndex: 'AutoId'},
+		{header: "Merk", width: 100, sortable: true, dataIndex: 'Merk'},
+		{header: "Bijnaam", width: 125, sortable: true, dataIndex: 'Bijnaam', groupable: false},
+		{header: "Kenteken", width: 70, sortable: true, dataIndex: 'Kenteken', groupable: false},
+		{header: "Plaats", width: 80, sortable: true, dataIndex: 'Plaats'},
+		{header: "Straat", width: 100, sortable: true, dataIndex: 'Straat', groupable: false},
+		{header: "Supplier", width: 100, sortable: true, dataIndex: 'SupplierId'}
+	],
+	view: new Ext.grid.GroupingView({
+		forceFit: true,
+		startCollapsed: true,
+		columnsText: 'Toon kolommen',
+		groupByText: 'Groepeer op dit veld',
+		showGroupsText: 'Groepeer',
+		sortAscText: 'Sorteer oplopend',
+		sortDescText: 'Sorteer aflopend',
+		groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Autos" : "Auto"]})'
+	}),
+	sm: new Ext.grid.RowSelectionModel({
+		singleSelect: true
+	})
+});
 
 var miscellaneousBoekingFormPanel = new Ext.FormPanel({
    title: 'Misc',
@@ -49,8 +60,8 @@ var miscellaneousBoekingFormPanel = new Ext.FormPanel({
    },{
 	 xtype: 'datefield',
 	 fieldLabel: 'Eind Datum',
-	 name: 'eindDate',
-	 dataIndex: 'eindDate'
+	 name: 'endDate',
+	 dataIndex: 'endDate'
    },{
 	 xtype: 'timefield',
 	 fieldLabel: 'Eind Tijd',
@@ -85,7 +96,37 @@ var creeerBoekingWindowBottomBar = new Ext.Toolbar({
 			   msg: 'Weet je zeker dat je deze boeking wil aanmaken?',
 			   buttons: Ext.Msg.YESNO,
 			   fn: function(e){
-					if(e == 'yes') miscellaneousBoekingFormPanel.getForm().submit({url:'./modules/api/createBooking.php'});
+					if(e == 'yes') miscellaneousBoekingFormPanel.getForm().submit({
+					   url:'./modules/api/createBooking.php',
+					   success: function() {
+						  Ext.Msg.show({
+						  title:'Succesvol aangemaakt',
+						  msg: 'De Reservering is succesvol aangemaakt',
+						  icon: Ext.MessageBox.INFO,
+						  buttons: Ext.Msg.OK,
+						  scope:this
+						  });
+					   },
+					   failure: function(form,action){
+						  if (action.failureType == 'client') {
+							  Ext.Msg.show({
+								 title:'Fout',
+								 msg: 'Je hebt het formulier niet correct ingevuld.<br>Verbeter de velden met rode onderstreping.',
+								 icon: Ext.MessageBox.ERROR,
+								 buttons: Ext.Msg.OK,
+								 scope:this
+							  });
+						  }else{
+							  Ext.Msg.show({
+								 title:'Fout',
+								 msg: 'Er is iets fout gegaan.<br>De reservering is niet aangemaakt!<br>Failure: '+action.failureType,
+								 icon: Ext.MessageBox.ERROR,
+								 buttons: Ext.Msg.OK,
+								 scope:this
+							  });
+						  }
+						}
+					  });
 				},
 			   animEl: 'header',
 			   icon: Ext.MessageBox.QUESTION,
@@ -99,16 +140,17 @@ var creeerBoekingWindowBottomBar = new Ext.Toolbar({
 var creeerBoekingWindow = new Ext.Window({
 	title: 'Creeer Boeking',
 	width: 800,
-	height: 900,
+	height: 1500,
 	autoHeight: true,
 	closable: true,
 	closeAction: 'hide',
 	layout: 'column',
 	iconCls: 'icon-user',
-	items: [miscellaneousBoekingFormPanel],
+	items: [miscellaneousBoekingFormPanel,resourceBoekingGridPanel],
 	bbar: creeerBoekingWindowBottomBar
 });
 
 var showCreeerBoekingWindow = function(){
 	creeerBoekingWindow.show();
+	resourceBoekingStore.load();
 };
