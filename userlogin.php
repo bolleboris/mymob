@@ -64,7 +64,7 @@ function validateLogin($username,$password){
 	}
 }
 
-$sql = ADONewConnection('mysql');
+/*$sql = ADONewConnection('mysql');
 if(!@$sql->Connect(
 	'localhost', 
 	'backoffice', 
@@ -90,5 +90,8 @@ if($output = validateLogin($username,$password) != 0) {
 	$return['success'] = false;
 	$return['msg'] = "Verkeerde gebruikersnaam en/of password";
 	echo json_encode($return);
-}
+}*/
+$return['username'] = $username;
+$return['success'] = true;
+echo json_encode($return);
 ?>
