@@ -57,22 +57,5 @@ $ContractStatusDesc = array(
 	3 => "Opgezegd"
 );
 
-function sendErrorJSON($errorMsg){
 
-	$metaData = array(
-		"idProperty" => "id",
-		"root" => "rows",
-		"totalProperty" => "results",
-		"successProperty" => "success",
-		"fields" => array(array('name' => 'id'))
-	);
-
-	$jsondata['metaData'] = $metaData;
-	$jsondata['success'] = false;
-	$jsondata['results'] = 0;
-	$jsondata['rows'] = array('id' => 0);
-	$jsondata['msg'] = $errorMsg;
-
-	die(json_encode($jsondata));
-}
 ?>

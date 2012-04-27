@@ -374,7 +374,7 @@ class BMUCore {
 	   return new BMU_ResourceGroup();
 	}
 	public function Booking($Booking_id) {
-	   $this->push('Booking('.$Booking_id,')');
+	   $this->push('Booking('.$Booking_id.')');
 	   return new BMU_Booking();
 	}
 	public function Schedule() {

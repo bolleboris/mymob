@@ -2,7 +2,7 @@
 
 require_once 'MyMobility.inc';
 require_once 'resource_attributes.inc.php';
-$personId = 1433;
+$personId = $_POST['personId'];
 $array = array(array('group' => 'HomePosition', 'key' => 'Longitude', 'access' => 'Public'),
 			   array('group' => 'HomePosition', 'key' => 'Latitude', 'access' => 'Public'));
 
@@ -19,9 +19,8 @@ if($res['result']['result'] == 0) {
 	  exit(json_encode(array('Success' => false, 'message' => $res['result']['message'])));
    }
    $rows = array();
-   $result = $res['result']['search_results'][0];
-   //foreach($res['result']['search_results'] as $result ) {
-	  var_dump($result);
+   //$result = $res['result']['search_results'][0];
+   foreach($res['result']['search_results'] as $result ) {
 	  $row = array();
 	  $values = get_resource_attributes($result['supplier_id'],$result['resource_id']);
 	  $row['AutoId'] = $result['resource_id'];
@@ -29,9 +28,13 @@ if($res['result']['result'] == 0) {
 	  $row['Kenteken'] = $values['Kenteken'];
 	  $row['SupplierCode'] = $result['supplier_code'];
 	  $row['CustomerCode'] = $result['customer_code'];
-	  $row['distance'] = $result['ref_distance'];
+	  $row['distance'] = round($result['ref_distance']);
+	  $row['service'] = $result['service_code'];
+	  $row['contractid'] = $result['contract_id'];
+	  $row['offerid'] = $result['offer_id'];
+	  $row['serviceid'] = $result['service_id'];
 	  $rows[] = $row;
-   //}
+   }
 }
 
 $metaData = array(
@@ -46,10 +49,10 @@ $metaData = array(
 		array('name' => 'SupplierCode'),
 		array('name' => 'CustomerCode'),
 		array('name' => 'distance'),
+		array('name' => 'service'),
 	)
 );
 
-//$BMUCore->Wheels4All()->ProviderSA(100)->FindResources($personId);
 $jsondata['metaData'] = $metaData;
 $jsondata['success'] = $rows ? true : false;
 $jsondata['results'] = $rows ? count($rows) : 0;

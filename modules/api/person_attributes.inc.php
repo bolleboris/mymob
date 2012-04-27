@@ -4,11 +4,12 @@ require_once('MyMobility.inc');
 
 function get_person_attributes($PersonId){
 	global $BMUCore, $person_attribute_mapping;
-	
 	$BMUCore->ProviderSA(MYMOB_APP_ID)->Person($PersonId)->Attributes()->GetList();
-	$request = $BMUCore->__toString();
-	$response = $BMUCore->sendRequest();
 
+	$request = $BMUCore->__toString();
+
+	$response = $BMUCore->sendRequest();
+	
 	if($response['result']['result'] != 0){
 		//sendErrorJSON($response['result']['message']);
 		return false;

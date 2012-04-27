@@ -6,8 +6,8 @@ class BMU_Booking {
 	public function GetList() {
 		BMUCore::b()->push('List()');
 	}
-	public function Info($Options = ' ') {
-		BMUCore::b()->push("Info('.$Options.')");
+	public function Info($Options = '') {
+		BMUCore::b()->push("Info('$Options')");
 	}
 	public function RequestNew($contract_id, $offer_id, $service_id, $resource_id, $StartDT, $EndDT) {
 	    BMUCore::b()->pushFunc('RequestNew',func_get_args());

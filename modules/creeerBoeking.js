@@ -8,7 +8,8 @@ var resourceBoekingGridPanel = new Ext.grid.GridPanel({
 	header: false,
 	collapsible: true,
 	animCollapse: true,
-	loadMask: true,
+	loadMask:  {msg: "Mogelijk te reserveren auto's worden geladen.."},
+	region: 'east',
 	store: resourceBoekingStore,
 	columns: [
 		{header: "AutoId", width: 60, sortable: true, dataIndex: 'AutoId'},
@@ -16,7 +17,11 @@ var resourceBoekingGridPanel = new Ext.grid.GridPanel({
 		{header: "Kenteken", width: 70, sortable: true, dataIndex: 'Kenteken', groupable: false},
 		{header: "Supplier", width: 100, sortable: true, dataIndex: 'SupplierCode'},
 		{header: "Contractant", width: 100, sortable: true, dataIndex: 'CustomerCode'},
-		{header: "Afstand", width: 100, sortable: true, dataIndex: 'distance'}
+		{header: "Service", width: 100, sortable: true, dataIndex: 'service'},
+		{header: "Afstand (in meters)", width: 100, sortable: true, dataIndex: 'distance'},
+		{header: "ContractId",hidden: true, width: 100, sortable: true, dataIndex: 'contractid'},
+		{header: "OfferId",hidden: true, width: 100, sortable: true, dataIndex: 'offerid'},
+		{header: "ServiceId",hidden: true, width: 100, sortable: true, dataIndex: 'serviceid'},
 
 	],
 	view: new Ext.grid.GroupingView({
@@ -31,12 +36,13 @@ var resourceBoekingGridPanel = new Ext.grid.GridPanel({
 	}),
 	sm: new Ext.grid.RowSelectionModel({
 		singleSelect: true
-	})
+	}),
+	height: 500
 });
 
 var miscellaneousBoekingFormPanel = new Ext.FormPanel({
    title: 'Misc',
-
+   region: 'west',
    items: [{
 	 xtype: 'numberfield',
 	 fieldLabel: 'Persoon ID',
@@ -83,6 +89,18 @@ var miscellaneousBoekingFormPanel = new Ext.FormPanel({
 	 name: 'serviceId',
 	 dataIndex: 'serviceId'
    }]
+});
+miscellaneousBoekingFormPanel.getForm().findField('PersonId').on('change',function( field, newValue, oldValue) {
+   resourceBoekingStore.load({params:{personId: newValue}});
+});
+
+resourceBoekingGridPanel.on('rowclick',function(grid, rowIndex, e) {
+   var record = grid.getSelectionModel().getSelected();
+   console.log(miscellaneousBoekingFormPanel.getForm().findField('contractid'));
+   miscellaneousBoekingFormPanel.getForm().findField('ResourceId').setValue(record.json.AutoId);
+   miscellaneousBoekingFormPanel.getForm().findField('contractId').setValue(record.json.contractid);
+   miscellaneousBoekingFormPanel.getForm().findField('offerId').setValue(record.json.offerid);
+   miscellaneousBoekingFormPanel.getForm().findField('serviceId').setValue(record.json.serviceid);
 });
 
 var creeerBoekingWindowBottomBar = new Ext.Toolbar({
@@ -140,11 +158,9 @@ var creeerBoekingWindowBottomBar = new Ext.Toolbar({
 var creeerBoekingWindow = new Ext.Window({
 	title: 'Creeer Boeking',
 	width: 800,
-	height: 1500,
-	autoHeight: true,
+	height: 700,
 	closable: true,
 	closeAction: 'hide',
-	layout: 'column',
 	iconCls: 'icon-user',
 	items: [miscellaneousBoekingFormPanel,resourceBoekingGridPanel],
 	bbar: creeerBoekingWindowBottomBar
@@ -152,5 +168,5 @@ var creeerBoekingWindow = new Ext.Window({
 
 var showCreeerBoekingWindow = function(){
 	creeerBoekingWindow.show();
-	resourceBoekingStore.load();
+	
 };

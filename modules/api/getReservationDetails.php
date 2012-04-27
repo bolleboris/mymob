@@ -1,11 +1,10 @@
 <?php
-require_once("./includes.inc.php");
+//require_once("./includes.inc.php");
 require_once('MyMobility.inc');
 require_once('person_attributes.inc.php');
 require_once('resource_attributes.inc.php');
 
 if($_SESSION['userLevel'] == 2) sendErrorJSON("Je bent als coördinator niet gemachtigd deze module te gebruiken!");
-
 if(isset($_POST['RitNr'])){
   $RitNr = $_POST['RitNr'];
 } else {
@@ -23,8 +22,7 @@ if($response['result']['result'] != 0){
 $res = $response['result'];
 
 //print_r($res);
-
-$car_att = get_resource_attributes($res['resource_id']);
+$car_att = get_resource_attributes($res['supplier_id'],$res['resource_id']);
 $pers_att = get_person_attributes($res['consumer_id']);
 
 $rows[] = array(

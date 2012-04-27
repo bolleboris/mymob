@@ -28,7 +28,7 @@ function set_resource_attributes($Resource_id, &$values) {
 	foreach($resource_attribute_mapping as $mapping) {
 		$attributes[] = $mapping->getAttribute($values);
 	}
-	$BMUCore->ProviderSA(MYMOB_APP_ID)->Supplier(19)->Resource($Resource_id)->Attributes()->ListUpdate($attributes);
+	$BMUCore->ProviderSA(MYMOB_APP_ID)->Supplier(100)->Resource($Resource_id)->Attributes()->ListUpdate($attributes);
 	$response = $BMUCore->sendRequest();
 	return $response;
 }
