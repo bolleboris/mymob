@@ -12,12 +12,12 @@ var resourceBoekingGridPanel = new Ext.grid.GridPanel({
 	store: resourceBoekingStore,
 	columns: [
 		{header: "AutoId", width: 60, sortable: true, dataIndex: 'AutoId'},
-		{header: "Merk", width: 100, sortable: true, dataIndex: 'Merk'},
 		{header: "Bijnaam", width: 125, sortable: true, dataIndex: 'Bijnaam', groupable: false},
 		{header: "Kenteken", width: 70, sortable: true, dataIndex: 'Kenteken', groupable: false},
-		{header: "Plaats", width: 80, sortable: true, dataIndex: 'Plaats'},
-		{header: "Straat", width: 100, sortable: true, dataIndex: 'Straat', groupable: false},
-		{header: "Supplier", width: 100, sortable: true, dataIndex: 'SupplierId'}
+		{header: "Supplier", width: 100, sortable: true, dataIndex: 'SupplierCode'},
+		{header: "Contractant", width: 100, sortable: true, dataIndex: 'CustomerCode'},
+		{header: "Afstand", width: 100, sortable: true, dataIndex: 'distance'}
+
 	],
 	view: new Ext.grid.GroupingView({
 		forceFit: true,

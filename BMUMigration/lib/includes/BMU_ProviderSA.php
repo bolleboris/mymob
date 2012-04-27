@@ -66,11 +66,19 @@ class BMU_ProviderSA {
 	public function ActiveBookingList() {
 		BMUCore::b()->push("ActiveBookingList()");
 	}
+	public function FindAttributesForEntities($attributes,$entities,$entitytype = 'person') {
+	    BMUCore::b()->push("FindAttributesForEntities(attributes,entities,'$entitytype')");
+		BMUCore::b()->addToArray('attributes',$attributes);
+		BMUCore::b()->addToArray('entities',$entities);
+	}
 	public function RegisterPerson($appCode,$EntityKey,$Email,$Password) {
 		BMUCore::b()->push("RegisterPerson('$appCode','$EntityKey','$Email','$Password')");
 	}
 	public function RequestBooking($PersonId, $contractId, $offerId, $serviceId, $ResourceId, $StartDT, $EndDt) {
 	   BMUCore::b()->push("RequestBooking($PersonId,$contractId,$offerId,$serviceId,$ResourceId,'$StartDT','$EndDt')");
+	}
+	public function FindResources($ConsumerId, $Condition, $RefPoint, $SearchArea, $StartDT, $EndDT, $Limit = 0) {
+	   BMUCore::b()->push("FindResources($ConsumerId,'$Condition','$RefPoint','$SearchArea','$StartDT','$EndDT',$Limit)");
 	}
 }
 ?>

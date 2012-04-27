@@ -1,5 +1,5 @@
 <?php
-require_once('includes.inc.php');
+//require_once('includes.inc.php');
 require_once('MyMobility.inc');
 if(isset($_REQUEST['userId'])) {
 	$userId = $_REQUEST['userId'];
@@ -8,6 +8,7 @@ if(isset($_REQUEST['userId'])) {
 }
 
 $BMUCore->Wheels4All()->ProviderSA(MYMOB_APP_ID)->PersonContractList($userId);
+
 $response = $BMUCore->sendRequest();
 
 

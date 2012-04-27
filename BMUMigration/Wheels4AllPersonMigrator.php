@@ -141,6 +141,7 @@ class Wheels4AllPersonMigrator {
 	  $personMapping->addMapping(array('Telefoon2'), array('group' => 'General', 'key' => 'Telephone2', 'access' => 'protected'));
 	  $personMapping->addMapping(array('Telefoon3'), array('group' => 'General', 'key' => 'Telephone3', 'access' => 'protected'));
 	  $personMapping->addMapping(array('RijbewijsNr'), array('group' => 'General', 'key' => 'DriverLicenceNr', 'access' => 'protected'));
+	  $personMapping->addMapping(array(''), array('group' => 'General', 'key' => 'DriverLicence', 'access' => 'public'));
 
 	  $personMapping->addMapping(array('Latitude'), array('group' => 'HomePosition', 'key' => 'Latitude', 'access' => 'public'));
 	  $personMapping->addMapping(array('Longitude'), array('group' => 'HomePosition', 'key' => 'Longitude', 'access' => 'public'));

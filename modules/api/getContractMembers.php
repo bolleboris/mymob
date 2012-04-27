@@ -1,5 +1,5 @@
 <?php
-require_once('includes.inc.php');
+//require_once('includes.inc.php');
 require_once('MyMobility.inc');
 require_once('person_attributes.inc.php');
 

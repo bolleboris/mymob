@@ -1,5 +1,5 @@
 <?php
-require_once('includes.inc.php');
+//require_once('includes.inc.php');
 require_once('MyMobility.inc');
 
 if(isset($_POST['ContractNr'])){

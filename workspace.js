@@ -155,7 +155,7 @@ var reserveringenMenu = {
 			text : 'Reservering maken',
 			iconCls : 'icon-calendar_add',
 			handler: function() {
-			   creeerBoekingWindow.show();
+			   showCreeerBoekingWindow();
 			}
 		},
 		{

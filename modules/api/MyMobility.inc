@@ -10,7 +10,6 @@ $BMUCore = BMUCore::b();
 $BMUCore->addToArray('access_token',MYMOB_ACCESS_TOKEN);
 $res = $BMUCore->sendRequest();
 
-
 class AttributeMapping {
 	private $field, $key, $group, $access;
 	public function __construct($field, $attributeDef) {

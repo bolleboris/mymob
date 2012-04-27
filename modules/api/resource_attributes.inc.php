@@ -1,12 +1,12 @@
 <?php 
 
 require_once('MyMobility.inc');
-require_once('includes.inc.php');
+//require_once('includes.inc.php');
 
-function get_resource_attributes($Resource_id){
+function get_resource_attributes($Supplier_id,$Resource_id){
 	global $BMUCore, $resource_attribute_mapping;
 	
-	$BMUCore->ProviderSA(MYMOB_APP_ID)->Supplier(19)->Resource($Resource_id)->Attributes()->GetList();
+	$BMUCore->ProviderSA(MYMOB_APP_ID)->Supplier($Supplier_id)->Resource($Resource_id)->Attributes()->GetList();
 	$response = $BMUCore->sendRequest();
 
 	if($response['result']['result'] != 0){
