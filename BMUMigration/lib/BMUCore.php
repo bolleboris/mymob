@@ -223,7 +223,6 @@ class BMUCore {
 	  curl_setopt_array($this->curl_obj,$curlOptions);
 //	  echo "1:".curl_error($this->curl_obj);
 	  $response = curl_exec($this->curl_obj);
-	  
 	  //echo "2:".curl_error($this->curl_obj);
 	  $decodedResponse = json_decode($response,true);
 

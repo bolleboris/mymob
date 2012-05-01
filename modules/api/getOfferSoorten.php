@@ -1,5 +1,5 @@
 <?php
-require_once('includes.inc.php');
+//require_once('includes.inc.php');
 require_once('MyMobility.inc');
 
 //$BMUCore->ProviderSA(MYMOB_APP_ID)->ContractType()->GetList();
@@ -14,8 +14,8 @@ $metaData = array(
 	"totalProperty" => "results",
 	"successProperty" => "success",
 	"fields" => array(
-		//array('name' => 'AbonnementSoort'),
-		//array('name' => 'Omschrijving',)
+		array('name' => 'OfferSoort'),
+		array('name' => 'Omschrijving',)
 /*
 • provider id - Integer that contains the ID of the Provider who created
 this OfferType
@@ -27,19 +27,12 @@ this OfferType
 • is active - If 1, Offers can be made with this OfferType.
  */
 
-		array('name' => ''),
-		array('name' => ''),
-		array('name' => ''),
-		array('name' => ''),
-		array('name' => ''),
-		array('name' => ''),
-		array('name' => ''),
 	)
 );
 foreach($response['result']['types'] as $type) {
 	$rows[] = array(
-		'AbonnementSoort' => $type['offer_type_id'],
-		'Omschrijving' => $type['info']
+		'OfferSoort' => $type['offer_type_id'],
+		'Omschrijving' => $type['code']
 	);
 }
 

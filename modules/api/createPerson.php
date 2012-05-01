@@ -61,7 +61,7 @@ if (false && isset($res['result']['result']) && $res['result']['result'] == 0) {
    $jsondata = array();
    $jsondata['success'] = false;
    $jsondata['error'] = $res['result']['message'];
-   $jsondata['error'] = 'Updaten van chips is tijdelijk uitgeschakeld';
+   $jsondata['error'] = 'Persoon kon niet toegevoegd worden';
 }
 
 echo json_encode($jsondata);

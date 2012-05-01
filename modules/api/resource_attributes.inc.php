@@ -14,11 +14,12 @@ function get_resource_attributes($Supplier_id,$Resource_id){
 		exit();
 	}
 	$attributes = $response['result']['attributes'];
-	
+
+	$resource_att = array();
 	foreach($resource_attribute_mapping as $attributeMapping) {
 		$resource_att[$attributeMapping->getField()] = $attributeMapping->getValue($attributes);
 	}
-
+	
 	return $resource_att;
 }
 
@@ -57,4 +58,4 @@ $resource_attribute_mapping[] = new AttributeMapping('ToeslagPerKilometer',	arra
 //$resource_attribute_mapping[] = new AttributeMapping('MaxTeBetalenUren',	array('group' => 'Prices',	'key' => 'MaxHours', 			'access' => 'Protected'));
 $resource_attribute_mapping[] = new AttributeMapping('ToeslagPerUur',		array('group' => 'Prices',	'key' => 'KilometerRate', 		'access' => 'Protected'));
 
-?> 
+?>

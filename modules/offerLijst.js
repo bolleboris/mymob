@@ -1,5 +1,3 @@
-
-
 var offerLijstStore = new Ext.data.GroupingStore({
 	url: './modules/api/getOffers.php',
 	reader : new Ext.data.JsonReader()			//Reader configureerd zichzelf met metaData in JSON string
@@ -77,8 +75,8 @@ var offerLijstGrid = new Ext.grid.GridPanel({
 		{header: "Nr", width: 50, sortable: true, dataIndex: 'OfferNr'},
 		{header: "Verschaffer", width: 75, sortable: true, dataIndex: 'Verschaffer'},
 		{header: "Leverancier", width: 100, sortable: true, dataIndex: 'Leverancier'},
-		{header: "Soort", width: 75, sortable: true, dataIndex: 'OfferSoort'},
-		{header: "Status", width: 75, sortable: true, dataIndex: 'Status'},
+		{header: "Offer Soort", width: 75, sortable: true, dataIndex: 'OfferSoort'},
+		{header: "Offer Status", width: 75, sortable: true, dataIndex: 'Status'},
 		{header: "Datum aangemaakt", width: 175, sortable: true, dataIndex: 'DatumAangemaakt'},
 		{header: "Datum aangevraagd", width: 100, sortable: true, dataIndex: 'DatumAangevraagd'},
 		{header: "Geldig van", width: 75, sortable: true, dataIndex: 'GeldigVan'},

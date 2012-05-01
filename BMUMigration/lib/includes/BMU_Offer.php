@@ -56,7 +56,6 @@ class BMU_Offer {
    public function ResourceRemove($resource_id) {
       BMUCore::b()->push('ResourceRemove('.$resource_id.')');
    }
-
    public function Resource() {
 	  return BMUCore::b()->Resource();
    }

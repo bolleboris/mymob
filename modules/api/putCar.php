@@ -1,6 +1,6 @@
 <?php
-require_once('includes.inc.php');
-require_once('address.inc.php');
+//require_once('includes.inc.php');
+//require_once('address.inc.php');
 require_once('MyMobility.inc');
 require_once('resource_attributes.inc.php');
 
@@ -49,7 +49,8 @@ foreach($response['result']['locations'] as $location) {
 		unset($resource['Plaats']);
 		unset($resource['Postcode']);
 		
-		$BMUCore->Supplier($resource['BeheerdersId'])->Resource($AutoId)->Location($location['location_id'])->Update($location_geo,$location_txt,$location_rem, $location['is_default']);
+		$BMUCore->ProviderSA(MYMOB_APP_ID)->Supplier($resource['BeheerdersId'])->Resource($AutoId)->Location($location['location_id'])->Update($location_geo,$location_txt,$location_rem, $location['is_default']);
+		$res = $BMUCore->sendRequest();
 	}
 }
 $jsondata['success'] = true;

@@ -1,50 +1,47 @@
 <?php
-require_once('includes.inc.php');
+//require_once('includes.inc.php');
 require_once('MyMobility.inc');
 
-if(isset($_POST['ContractNr'])){
-  $ContractNr = $_POST['ContractNr'];
+if(isset($_POST['OfferNr'])){
+  $OfferNr = $_POST['OfferNr'];
 } else {
-  sendErrorJSON("FOUT: Geen ContractNr gedefinieerd!");
+  sendErrorJSON("FOUT: Geen OfferNr gedefinieerd!");
 }
 
 
 
 	
-$BMUCore->ProviderSA(100)->Contract($ContractNr)->Info();
+$BMUCore->ProviderSA(MYMOB_APP_ID)->Offer($OfferNr)->Info();
 $response = $BMUCore->sendRequest();
 
 if($result['result']['result'] != 0) sendErrorJSON($result['result']['message']);
 
 
 $rows[] = array(
-	"ContractNr" => $ContractNr,
-	"Verantwoordelijke" => $response['result']['customer_id'],
+	"OfferNr" => $OfferNr,
+	"Verantwoordelijke" => $response['result']['supplier_id'],
 	"Status" => $response['result']['status'], 
-	"AbonnementSoort" => $response['result']['contract_type_id'], 
-	"AbonnementGraad" => 'Vol',
+	"OfferSoort" => $response['result']['offer_type_id'],
 );
 
 $metaData = array(
-	"idProperty" => "ContractNr",
+	"idProperty" => "OfferNr",
 	"root" => "rows",
 	"totalProperty" => "results",
 	"successProperty" => "success",
 	"fields" => array(
-		array('name' => 'ContractNr'),
-		array('name' => 'Verantwoordelijke',),
+		array('name' => 'OfferNr'),
+		array('name' => 'Verantwoordelijke'),
 		array('name' => 'Status'),
-		array('name' => 'AbonnementSoort'),
-		array('name' => 'AbonnementGraad')
+		array('name' => 'OfferSoort'),
 	)
 );
 
 $EmptyRows[] = array(
-	"ContractNr" => null,
+	"OfferNr" => null,
 	"Verantwoordelijke" => null,
 	"Status" => null,
-	"AbonnementSoort" => null,
-	"AbonnementGraad" => null
+	"OfferSoort" => null,
 );
 
 $jsondata['metaData'] = $metaData;

@@ -80,5 +80,8 @@ class BMU_ProviderSA {
 	public function FindResources($ConsumerId, $Condition, $RefPoint, $SearchArea, $StartDT, $EndDT, $Limit = 0) {
 	   BMUCore::b()->push("FindResources($ConsumerId,'$Condition','$RefPoint','$SearchArea','$StartDT','$EndDT',$Limit)");
 	}
+	public function CreateResource($SupplierID, $Group, $ResourceType, $Code, $Info) {
+	   BMUCore::b()->push("CreateResource($SupplierID,$Group,'$ResourceType','$Code','$Info')");
+	}
 }
 ?>

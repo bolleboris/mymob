@@ -2,15 +2,15 @@
 //require_once('includes.inc.php');
 require_once('MyMobility.inc');
 require_once('resource_attributes.inc.php');
-
 if($_SESSION['userLevel'] == 2) sendErrorJSON("Je bent als coördinator niet gemachtigd deze module te gebruiken!");
 if(isset($_POST['AutoId'])){
   $AutoId = $_POST['AutoId'];
 } else {
   sendErrorJSON("FOUT: Geen AutoId gedefinieerd!");
 }
+$resource = array();
 
-$resource = get_resource_attributes($AutoId);
+$resource = get_resource_attributes(100,$AutoId);
 
 /*$BMUCore->ProviderSA(MYMOB_APP_ID)->Supplier(19)->Resource($AutoId)->Attributes()->GetList();
 $response = $BMUCore->sendRequest();
@@ -24,7 +24,7 @@ foreach($attributeMappings as $attributeMapping) {
 $resource['AutoId'] = $AutoId;
 $resource['BeheerdersId'] = 100;
 
-if($resource['BoardComputer'] != 'no') {$resource['Opties'] = 'Boordcomputer,'.$resource['Opties'];}
+if($resource['Boordcomputer'] != 'no') {$resource['Opties'] = 'Boordcomputer,'.$resource['Opties'];}
 
 $BMUCore->ProviderSA(MYMOB_APP_ID)->Supplier(100)->Resource($AutoId)->Location()->GetList();
 $response = $BMUCore->sendRequest();
@@ -33,8 +33,6 @@ if($response['result']['result'] == 0) {
 	//var_dump($locations);
 	foreach($locations as $location) {
 		if($location['is_default'] == '1') {
-			
-
 			$blaat = explode(', ',$location['location_txt']);
 			$bloot = explode(' ',$blaat[0]);
 			$resource['Woonplaats'] = $blaat[2];
@@ -55,14 +53,14 @@ if($response['result']['result'] == 0) {
 
 $BMUCore->ProviderSA(MYMOB_APP_ID)->Supplier(100)->Resource($AutoId)->Info();
 $response = $BMUCore->sendRequest();
-$info = $response['result']['resource'];
+$info = $response['result'];
 $resource['Actief'] = ($info['is_active'])? true : false;
-
 $opties = explode(",",$resource['Opties']);
 $adres = ($resource['Toevoeging']) ? $resource['Straatnaam']." ".$resource['Huisnr']." ".$resource['Toevoeging'] : $resource['Straatnaam']." ".$resource['Huisnr'];
 $rows[] = array(
-  	"AutoId" => $resource['AutoId'], 
+  	"AutoId" => $AutoId,
   	"BeheerdersId" => $resource['BeheerdersId'],
+	'Actief' => $resource['Actief'],
 	"Merk" => $resource['Merk'], 
 	"Model" => $resource['Model'],
 	"Bijnaam" => $resource['Bijnaam'], 

@@ -21,7 +21,6 @@ var autoDetailStoreReader = new Ext.data.JsonReader({
 		{name: 'Opmerkingen'},
 		{name: 'Afbeelding'},
 		{name: 'ToeslagPerUur'},
-		{name: 'Opmerkingen'},
 		{name: 'Handleiding'},
 		{name: 'Afbeelding'},
 		{name: 'Actief'},
@@ -424,5 +423,5 @@ var showCarDetails = function(AutoId){
 	autoDetailWindow.setTitle("Details auto "+AutoId);
 	autoImagesStore.load();
 	AutoDetailId = AutoId;
-	autoDetailForm.getForm().load({url:'./modules/api/getCar.php', params: {AutoId : AutoDetailId}, waitMsg:'Laden...'});
+	autoDetailForm.getForm().load({url:'./modules/api/getCar.php', params: {AutoId : AutoId}, waitMsg:'Laden...'});
 };
