@@ -64,6 +64,7 @@
 	<script type="text/javascript" src="./modules/creeerBoeking.js"></script>
 	<script type="text/javascript" src="./modules/offerDetails.js"></script>
 	<script type="text/javascript" src="./modules/offerLijst.js"></script>
+	<script type="text/javascript" src="./modules/creeerAuto.js"></script>
 </head>
 
 <body>

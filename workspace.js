@@ -39,6 +39,12 @@ var autoMenu = {
 				autoBezettingWindow.show();
 				autoBezettingStore.load();
 			}
+		},  {
+		    text : 'Creeer Auto',
+			iconCls: 'icon-car_add',
+			handler: function () {
+			    showCreateResourceWindow();
+			}
 		}
 	]
 };
