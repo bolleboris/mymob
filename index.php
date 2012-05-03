@@ -37,6 +37,7 @@
 	<script type="text/javascript" src="workspace.js"></script>
 	<script type="text/javascript" src="./modules/autoBezetting.js"></script>
 	<script type="text/javascript" src="./modules/autoLijst.js"></script>
+	<script type="text/javascript" src="./modules/creeerAuto.js"></script>
 	<script type="text/javascript" src="./modules/CCOMAlarmLog.js"></script>
 	<script type="text/javascript" src="./modules/CCOMAlarmPerAuto.js"></script>
 	<script type="text/javascript" src="./modules/lopendeRitten.js"></script>
@@ -64,7 +65,7 @@
 	<script type="text/javascript" src="./modules/creeerBoeking.js"></script>
 	<script type="text/javascript" src="./modules/offerDetails.js"></script>
 	<script type="text/javascript" src="./modules/offerLijst.js"></script>
-	<script type="text/javascript" src="./modules/creeerAuto.js"></script>
+	<script type="text/javascript" src="./modules/searchUserstest.js"></script>
 </head>
 
 <body>
