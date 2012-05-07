@@ -7,24 +7,27 @@ offerLijstStore.on('exception', handleProxyException);
 
 var offerLijstWindowTopBar = new Ext.Toolbar({			//Topbar voor main window
 	items : [
-		{
+		/*{
 			text: 'Offer toevoegen',
 			iconCls: 'icon-bullet_plus',
 			handler: function () {
 				//showOfferDetails(offerLijstGrid.getSelectionModel().getSelected().get("OfferNr"));
 				addOffer();
 			}
-		}, {
+		}, */{
 			text: 'Wijzig offergegevens',
 			iconCls: 'icon-wrench',
 			handler: function () {
-				showOfferDetails(offerLijstGrid.getSelectionModel().getSelected().get("OfferNr"));
+				var selectedRow = offerLijstGrid.getSelectionModel().getSelected();
+				if (selectedRow) {
+					showOfferDetails(selectedRow.get("OfferNr"), selectedRow.get("VerschafferNr"));
+				}
 			}
 		}, {
 			text: 'Toon leveranciersdetails',
 			iconCls: 'icon-user',
 			handler: function () {
-				// @todo Welke scriots zijn verantwoordelijk voor het ophalen van Suppliers/LegalEntities?
+				// @todo Welke scripts zijn verantwoordelijk voor het ophalen van Suppliers/LegalEntities?
 				showSupplierDetails(offerLijstGrid.getSelectionModel().getSelected().get("Verschaffer"));
 			}
 		}
@@ -37,7 +40,10 @@ var offerLijstGridCtxMenu = new Ext.menu.Menu({
 			text: 'Wijzig offergegevens',
 			iconCls: 'icon-wrench',
 			handler: function () {
-				showOfferDetails(offerLijstGrid.getSelectionModel().getSelected().get("OfferNr"));
+				var selectedRow = offerLijstGrid.getSelectionModel().getSelected();
+				if (selectedRow) {
+					showOfferDetails(selectedRow.get("OfferNr"), selectedRow.get("VerschafferNr"));
+				}
 			}
 		}, {
 			text: 'Toon leveranciersdetails',
@@ -96,9 +102,11 @@ offerLijstGrid.on('rowcontextmenu', function (grid, rowIdx, evtObj) {
 
 offerLijstGrid.on('rowdblclick', function (grid, rowIdx, evtObj) {
 	evtObj.stopEvent();			//Voorkom dat browser zijn eigen rightclick menu renderd.
-	grid.getSelectionModel().selectRow(rowIdx);	//Select de row (doet ie niet standaard bij rightclick
+	var selectedRow = offerLijstGrid.getSelectionModel().getSelected();
+
 	//showContractDetails(grid.getSelectionModel().getSelected().get("ContractNr"));
-	showUserDetails(grid.getSelectionModel().getSelected().get("OfferNr"));
+	//showUserDetails(grid.getSelectionModel().getSelected().get("OfferNr"));
+	showOfferDetails(selectedRow.get("OfferNr"), selectedRow.get("VerschafferNr"));
 });
 
 var offerLijstWindow = new Ext.Window({
@@ -120,6 +128,7 @@ var addOffer = function () {
 	return false;
 }
 
+// move this to a separate file?
 var showSupplierDetails = function (supplier_id) {
 	Ext.Msg.alert('TODO!');
 	return false;
