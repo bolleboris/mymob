@@ -83,5 +83,8 @@ class BMU_ProviderSA {
 	public function CreateResource($SupplierID, $Group, $ResourceType, $Code, $Info) {
 	   BMUCore::b()->push("CreateResource($SupplierID,$Group,'$ResourceType','$Code','$Info')");
 	}
+	public function OfferResources($offerId) {
+	   //BMUCore::b()->push("CreateResource($SupplierID,$Group,'$ResourceType','$Code','$Info')");
+	   BMUCore::b()->push("OfferResources({$offerId})");
+	}
 }
-?>
